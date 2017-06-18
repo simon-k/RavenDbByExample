@@ -32,9 +32,67 @@ namespace RavenDbByExample.Repository.Tests
         [Fact]
         public void Add_Pizza_AddsPizzaToRepository()
         {
-            var expectedPizza = new Pizza
+            var expectedId = "Hawaii";
+            Pizza expectedPizza = ArrangePizza(expectedId);
+
+            _repository.Add(expectedPizza);
+
+            Pizza actualPizza;
+            using (var session = _documentStore.OpenSession())
             {
-                Id = "Hawaii",
+                actualPizza = session.Load<Pizza>(expectedId);
+            }
+
+            //TODO: Add comparator to entities and make below assert better.
+            actualPizza.Id.Should().Be(expectedPizza.Id);
+        }
+
+        [Fact]
+        public void Get_Pizza_ReturnsPizzaFromRepository()
+        {
+            var expectedId = "Hawaii";
+            Pizza expectedPizza = ArrangePizza(expectedId);
+
+            using (var session = _documentStore.OpenSession())
+            {
+                session.Store(expectedPizza);
+                session.SaveChanges();
+            }
+
+            var actualPizza = _repository.Get(expectedId);
+
+            //TODO: Add comparator to entities and make below assert better.
+            actualPizza.Id.Should().Be(expectedPizza.Id);
+        }
+
+        [Fact]
+        public void Delete_Pizza_RemovesPizzaFromRepository()
+        {
+            var expectedId = "Hawaii";
+            Pizza expectedPizza = ArrangePizza(expectedId);
+
+            using (var session = _documentStore.OpenSession())
+            {
+                session.Store(expectedPizza);
+                session.SaveChanges();
+            }
+
+             _repository.Delete(expectedId);
+
+            Pizza actualPizza;
+            using (var session = _documentStore.OpenSession())
+            {
+                actualPizza = session.Load<Pizza>(expectedId);
+            }
+
+            actualPizza.Should().BeNull();
+        }
+
+        private static Pizza ArrangePizza(string id)
+        {
+            return new Pizza
+            {
+                Id = id,
                 Toppings = new List<Topping>
                 {
                     Topping.Tomatoes, Topping.Cheese, Topping.Ham, Topping.Pineapple
@@ -46,17 +104,6 @@ namespace RavenDbByExample.Repository.Tests
                     Reason = "Nobody likes pineapple on a pizza.",
                 }
             };
-
-            _repository.Add(expectedPizza);
-
-            Pizza actualPizza;
-            using (var session = _documentStore.OpenSession())
-            {
-                actualPizza = session.Load<Pizza>("Hawaii");
-            }
-
-            //TODO: Add comparator to entities and make below assert better.
-            actualPizza.Id.Should().Be(expectedPizza.Id);
         }
     }
 }

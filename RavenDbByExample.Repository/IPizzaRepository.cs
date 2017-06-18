@@ -9,5 +9,6 @@ namespace RavenDbByExample.Repository
         void Delete(string id);
         Pizza Get(string id);
         IEnumerable<Pizza> GetByScore(Score score);
+        IEnumerable<Pizza> GetByTopping(Topping topping);
     }
 }

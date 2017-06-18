@@ -90,7 +90,7 @@ namespace RavenDbByExample.Repository.Tests
         }
 
         [Fact]
-        public void GetByTopping_Topping_ReturnsPizzasWithGivenTopping()
+        public void GetByScore_Score_ReturnsPizzasWithGivenScore()
         {
             var hawaiiPizza = ArrangePizza("Hawaii", Score.Perfect);
             var margaritaPizza = ArrangePizza("Margarita", Score.Perfect);
@@ -112,13 +112,28 @@ namespace RavenDbByExample.Repository.Tests
             //actualPizzas.Should().Contain(hawaiiPizza);
         }
 
-        /*[Fact]
+        [Fact]
         public void GetByTopping_Topping_ReturnsPizzasWithGivenTopping()
         {
-            var hawaiiPizza = ArrangePizza("Hawaii", new List<Topping> { Topping.Tomatoes, Topping.Cheese, Topping.Ham, Topping.Pineapple });
-            var margaritaPizza = ArrangePizza("Margarita", new List<Topping>{Topping.Tomatoes, Topping.Cheese});
-            var mvesuvioPizza = ArrangePizza("Vesuvio", new List<Topping> { Topping.Tomatoes, Topping.Cheese, Topping.Ham });
-        }*/
+            var hawaiiPizza = ArrangePizza("Hawaii", toppings: new List<Topping> { Topping.Tomatoes, Topping.Cheese, Topping.Ham, Topping.Pineapple });
+            var margaritaPizza = ArrangePizza("Margarita", toppings: new List<Topping>{Topping.Tomatoes, Topping.Cheese});
+            var vesuvioPizza = ArrangePizza("Vesuvio", toppings: new List<Topping> { Topping.Tomatoes, Topping.Cheese, Topping.Ham });
+
+            using (var session = _documentStore.OpenSession())
+            {
+                session.Store(hawaiiPizza);
+                session.Store(margaritaPizza);
+                session.Store(vesuvioPizza);
+                session.SaveChanges();
+            }
+
+            var actualPizzas = _repository.GetByTopping(Topping.Ham);
+
+            actualPizzas.Count().Should().Be(2);
+            //TODO: Implement pizza comparar to pass the asserts below
+            //actualPizzas.Should().Contain(hawaiiPizza);
+            //actualPizzas.Should().Contain(vesuvioPizza);
+        }
 
         private static Pizza ArrangePizza(string id, Score score = Score.OK, List<Topping> toppings = null)
         {

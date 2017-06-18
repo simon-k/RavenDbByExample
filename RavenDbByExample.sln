@@ -3,12 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RavenDbByExample.Repository", "RavenDbByExample.Repository\RavenDbByExample.Repository.csproj", "{C27F168F-6032-4B83-8D1C-7BC5AB4B020B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5B051B3B-863D-455D-92A9-CA124FB0F697}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RavenDbByExample.Repository.Tests", "RavenDbByExample.Repository.Tests\RavenDbByExample.Repository.Tests.csproj", "{1A47CF9A-7F32-4D86-A25F-017745377823}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RavenDbByExample.Repository", "RavenDbByExample.Repository\RavenDbByExample.Repository.csproj", "{3C08B39F-2269-4E5E-9CC1-AFC38BFB212B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,10 +18,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C27F168F-6032-4B83-8D1C-7BC5AB4B020B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C27F168F-6032-4B83-8D1C-7BC5AB4B020B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C27F168F-6032-4B83-8D1C-7BC5AB4B020B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C27F168F-6032-4B83-8D1C-7BC5AB4B020B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A47CF9A-7F32-4D86-A25F-017745377823}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A47CF9A-7F32-4D86-A25F-017745377823}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A47CF9A-7F32-4D86-A25F-017745377823}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A47CF9A-7F32-4D86-A25F-017745377823}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C08B39F-2269-4E5E-9CC1-AFC38BFB212B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C08B39F-2269-4E5E-9CC1-AFC38BFB212B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C08B39F-2269-4E5E-9CC1-AFC38BFB212B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C08B39F-2269-4E5E-9CC1-AFC38BFB212B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

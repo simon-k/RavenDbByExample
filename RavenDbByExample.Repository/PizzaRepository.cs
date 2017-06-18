@@ -1,5 +1,8 @@
 ﻿using Raven.Client;
 using RavenDbByExample.Repository.Entities;
+using RavenDbByExample.Repository.Indexes;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace RavenDbByExample.Repository
 {
@@ -10,6 +13,7 @@ namespace RavenDbByExample.Repository
         public PizzaRepository(IDocumentStore documentStore)
         {
             _documentStore = documentStore;
+            LoadIndexes();
         }
 
         public void Add(Pizza pizza)
@@ -39,6 +43,21 @@ namespace RavenDbByExample.Repository
                 return pizza;
             }
         }
+
+        public IEnumerable<Pizza> GetByScore(Score score)
+        {
+            using (var session = _documentStore.OpenSession())
+            {
+                return session.Query<Pizza, PizzaByScoreIndex>()
+                              .Where(p => p.Rating.Score == score);
+            }
+        }
+
+        private void LoadIndexes()
+        {
+            new PizzaByScoreIndex().Execute(_documentStore);
+        }
+
 
         //TODO: Get Number of Pizzas 
         //TODO: Get All Pizzas

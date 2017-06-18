@@ -1,4 +1,5 @@
 ﻿using RavenDbByExample.Repository.Entities;
+using System.Collections.Generic;
 
 namespace RavenDbByExample.Repository
 {
@@ -7,5 +8,6 @@ namespace RavenDbByExample.Repository
         void Add(Pizza pizza);
         void Delete(string id);
         Pizza Get(string id);
+        IEnumerable<Pizza> GetByScore(Score score);
     }
 }

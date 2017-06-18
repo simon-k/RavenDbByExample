@@ -51,6 +51,7 @@
     <Compile Include="Entities\Rating.cs" />
     <Compile Include="Entities\Score.cs" />
     <Compile Include="Entities\Topping.cs" />
+    <Compile Include="Indexes\PizzaByScoreIndex.cs" />
     <Compile Include="IPizzaRepository.cs" />
     <Compile Include="PizzaRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

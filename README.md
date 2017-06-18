@@ -3,6 +3,8 @@ A short demonstration of how RavenDB can be used to persist data
 
 # How it works
 - Simply reference RavenDB from NuGet.
+- Query by linq
+
 
 # The Niec Parts
 - No SQL!

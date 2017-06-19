@@ -21,7 +21,7 @@ namespace RavenDbByExample.Repository.Tests
                 {
                     RunInUnreliableYetFastModeThatIsNotSuitableForProduction = true,
                     RunInMemory = true,
-                }
+                },
             };
             _documentStore.Configuration.Storage.Voron.AllowOn32Bits = true;
             _documentStore.Initialize();

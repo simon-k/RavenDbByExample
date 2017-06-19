@@ -10,5 +10,6 @@ namespace RavenDbByExample.Repository
         Pizza Get(string id);
         IEnumerable<Pizza> GetByScore(Score score);
         IEnumerable<Pizza> GetByTopping(Topping topping);
+        IEnumerable<Pizza> GetRevisions(string id);
     }
 }

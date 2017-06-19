@@ -1,10 +1,9 @@
 ﻿using Raven.Client;
+using Raven.Client.Bundles.Versioning;
 using RavenDbByExample.Repository.Entities;
 using RavenDbByExample.Repository.Indexes;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 
 namespace RavenDbByExample.Repository
 {
@@ -64,53 +63,20 @@ namespace RavenDbByExample.Repository
             }
         }
 
+        public IEnumerable<Pizza> GetRevisions(string id)
+        {
+            using (var session = _documentStore.OpenSession())
+            {
+                var pizza = session.Load<Pizza>(id);
+                var revisions = session.Advanced.GetRevisionsFor<Pizza>(pizza.Id, 0, 25);
+                return revisions;
+            }
+        }
+
         private void LoadIndexes()
         {
             new PizzaByScoreIndex().Execute(_documentStore);
             new PizzaByToppingIndex().Execute(_documentStore);
-            WaitForNonStaleIndexes(_documentStore, TimeSpan.FromSeconds(30));
         }
-
-
-
-        public static bool WaitForNonStaleIndexes(IDocumentStore documentStore, TimeSpan timeout)
-        {
-            string[] staleIndexes;
-            return WaitForNonStaleIndexes(documentStore, timeout, out staleIndexes);
-        }
-
-        public static bool WaitForNonStaleIndexes(IDocumentStore documentStore, TimeSpan timeout, out string[] staleIndexes)
-        {
-            var time = DateTime.Now;
-
-            staleIndexes = ExcludeAutoIndexes(GetStaleIndexes(documentStore));
-
-            while (staleIndexes.Length > 0)
-            {
-                if (DateTime.Now - time > timeout)
-                {
-                    return false;
-                }
-                Thread.Sleep(50);
-
-                staleIndexes = ExcludeAutoIndexes(GetStaleIndexes(documentStore));
-            }
-
-            return true;
-        }
-
-        private static string[] GetStaleIndexes(IDocumentStore documentStore)
-        {
-            return documentStore.DatabaseCommands.GetStatistics().StaleIndexes;
-        }
-
-        private static string[] ExcludeAutoIndexes(string[] staleIndexes)
-        {
-            return staleIndexes.Where(x => !x.StartsWith("Auto/")).ToArray();
-        }
-
-
-
-        //TODO: Search pizza by name
     }
 }

@@ -12,6 +12,7 @@ A short demonstration of how RavenDB can be used to persist data
 - No need for a DBA to make a schema change!
 - No need to coordinate deployments with DBA!
 - Testable!
+- Lucene / Linq queries
 
 # Tricky Parts
 - Eventual concistency

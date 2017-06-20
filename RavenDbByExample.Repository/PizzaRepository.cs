@@ -9,7 +9,7 @@ namespace RavenDbByExample.Repository
 {
     public class PizzaRepository : IPizzaRepository
     {
-        private IDocumentStore _documentStore;
+        private readonly IDocumentStore _documentStore;
 
         public PizzaRepository(IDocumentStore documentStore)
         {
@@ -67,8 +67,7 @@ namespace RavenDbByExample.Repository
         {
             using (var session = _documentStore.OpenSession())
             {
-                var pizza = session.Load<Pizza>(id);
-                var revisions = session.Advanced.GetRevisionsFor<Pizza>(pizza.Id, 0, 25);
+                var revisions = session.Advanced.GetRevisionsFor<Pizza>(id, 0, 25);
                 return revisions;
             }
         }

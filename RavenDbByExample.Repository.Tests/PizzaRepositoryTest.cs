@@ -44,8 +44,7 @@ namespace RavenDbByExample.Repository.Tests
                 actualPizza = session.Load<Pizza>(expectedId);
             }
 
-            //TODO: Add comparator to entities and make below assert better.
-            actualPizza.Id.Should().Be(expectedPizza.Id);
+            actualPizza.Should().Be(expectedPizza);
         }
 
         [Fact]
@@ -59,11 +58,10 @@ namespace RavenDbByExample.Repository.Tests
                 session.Store(expectedPizza);
                 session.SaveChanges();
             }
-
+            
             var actualPizza = _repository.Get(expectedId);
 
-            //TODO: Add comparator to entities and make below assert better.
-            actualPizza.Id.Should().Be(expectedPizza.Id);
+            actualPizza.Should().Be(expectedPizza);
         }
 
         [Fact]
@@ -107,9 +105,8 @@ namespace RavenDbByExample.Repository.Tests
             var actualPizzas = _repository.GetByScore(Score.Perfect);
 
             actualPizzas.Count().Should().Be(2);
-            //TODO: Implement pizza comparar to pass the asserts below
-            //actualPizzas.Should().Contain(margaritaPizza);
-            //actualPizzas.Should().Contain(hawaiiPizza);
+            actualPizzas.Should().Contain(margaritaPizza);
+            actualPizzas.Should().Contain(hawaiiPizza);
         }
 
         [Fact]
@@ -130,9 +127,8 @@ namespace RavenDbByExample.Repository.Tests
             var actualPizzas = _repository.GetByTopping(Topping.Ham);
 
             actualPizzas.Count().Should().Be(2);
-            //TODO: Implement pizza comparar to pass the asserts below
-            //actualPizzas.Should().Contain(hawaiiPizza);
-            //actualPizzas.Should().Contain(vesuvioPizza);
+            actualPizzas.Should().Contain(hawaiiPizza);
+            actualPizzas.Should().Contain(vesuvioPizza);
         }
 
         private static Pizza ArrangePizza(string id, Score score = Score.OK, List<Topping> toppings = null)

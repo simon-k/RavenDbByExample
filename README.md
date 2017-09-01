@@ -17,6 +17,7 @@ A short demonstration of how RavenDB can be used to persist data
 - High performance
 - Support for revisions out of the box
 - Easy backup and restore
+- ACID compliant (Atomicity, Consistency, Isolation, Durability).
 
 # Tricky Parts
 - Eventual concistency
